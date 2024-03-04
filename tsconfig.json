@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": [
+      "esnext",
+      "dom",
+    ],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
+    "declarationDir": "./dist/types",
+    "outDir": "./dist/types",
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "~/*": [
+        "src/*"
+      ],
+      "dev/*": [
+        "src/dev/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "src/index.js"
+  ]
+}

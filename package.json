@@ -1,0 +1,81 @@
+{
+  "name": "arabi-ui",
+  "private": false,
+  "version": "0.0.01",
+  "type": "module",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "default": "./dist/index.umd.js",
+        "types": "./dist/types/index.d.ts"
+      },
+      "import": {
+        "default": "./dist/index.es.js",
+        "types": "./dist/types/index.d.ts"
+      }
+    },
+    "./style": {
+      "require": "./dist/style.css",
+      "import": "./dist/style.css"
+    },
+    "./icons": {
+      "require": "./src/assets/icons/e-icon.css",
+      "import": "./src/assets/icons/e-icon.css"
+    },
+    "./fonts": {
+      "require": "./src/assets/fonts/fonts.css",
+      "import": "./src/assets/fonts/fonts.css"
+    },
+    "./base/mixins": {
+      "require": "./src/assets/style/base/_mixins.scss",
+      "import": "./src/assets/style/base/_mixins.scss"
+    },
+    "./base/variables": {
+      "require": "./src/assets/style/base/_variables.scss",
+      "import": "./src/assets/style/base/_variables.scss"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "release:major": "npm run build && npm version $(semver $npm_package_version -i major) && npm publish --tag latest",
+    "release:minor": "npm run build && npm version $(semver $npm_package_version -i minor) && npm publish --tag latest",
+    "release:patch": "npm run build && npm version $(semver $npm_package_version -i patch) && npm publish --tag latest",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "@vue/eslint-config-typescript": "^12.0.0",
+    "chart.js": "^4.4.1",
+    "sass": "^1.69.5",
+    "vue": "^3.3.8",
+    "vue-chartjs": "^5.3.0",
+    "vue-virtual-scroller": "^2.0.0-beta.8"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.23.5",
+    "@types/node": "^20.10.3",
+    "@typescript-eslint/parser": "^6.13.2",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "stylelint": "^15.11.0",
+    "stylelint-config-property-sort-order-smacss": "^9.1.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-config-standard-vue": "^1.0.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "vue-tsc": "^1.8.22"
+  }
+}

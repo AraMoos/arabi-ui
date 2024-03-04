@@ -1,0 +1,136 @@
+@use "sass:math";
+
+@mixin circle-($size, $center: false) {
+    width: $size;
+    height: $size;
+    min-height: $size;
+    min-width: $size;
+    border-radius: 50%;
+
+    @if $center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@mixin square-($w: 0, $h: 0) {
+    width: $w;
+    height: $h;
+    min-height: $h;
+    min-width: $w;
+}
+
+@mixin min-max-($w: 0, $h: 0) {
+    width: $w;
+    height: $h;
+    min-height: $h;
+    min-width: $w;
+    max-height: $h;
+    max-width: $w;
+}
+
+@function to-rem($value) {
+    @if type-of($value)==number {
+        $t: math.div($value, $unit-size)+rem;
+        @return $t;
+    }
+
+    @return 0+rem;
+}
+
+
+
+@function color($name) {
+    @if map-has-key($colors, $name) {
+        @return map-get($colors, $name);
+    }
+
+    @return transparent;
+}
+
+@mixin set-colors {
+
+    @each $name,
+    $color in $colors {
+        .color-#{$name} {
+            color: #{$color} !important;
+        }
+
+        .bg-color-#{$name} {
+            background-color: #{$color} !important;
+        }
+    }
+}
+
+@function font-family($name) {
+    @if map-has-key($fonts, $name) {
+        @return map-get($fonts, $name);
+    }
+
+    @return manrope;
+}
+
+
+
+@mixin set-fonts-family {
+
+    @each $name,
+    $font in $fonts {
+        .#{$name} {
+            font-family: #{$font} !important;
+        }
+    }
+}
+
+@include set-colors;
+@include set-fonts-family;
+
+
+$texts: (
+    heading-1: to-rem(42) / to-rem(48) font-family('manrope-500'),
+    heading-2: to-rem(28) / to-rem(42) font-family('manrope-500'),
+    heading-3: to-rem(24) / to-rem(28) font-family('manrope-500'),
+    heading-4: to-rem(20) / to-rem(24) font-family('manrope-500'),
+    heading-5: to-rem(15) / to-rem(24) font-family('manrope-500'),
+    lg: to-rem(14) / to-rem(21) font-family('manrope-400'),
+    lg-200: to-rem(14) / to-rem(21) font-family('manrope-200'),
+    lg-500: to-rem(14) / to-rem(21) font-family('manrope-500'),
+    lg-600: to-rem(14) / to-rem(21) font-family('manrope-600'),
+    md: to-rem(12) / to-rem(18) font-family('manrope-200'),
+    sm: to-rem(12) / to-rem(12) font-family('manrope-400'),
+    sm-600: to-rem(12) / to-rem(12) font-family('manrope-600'),
+    xs: to-rem(10) / to-rem(14) font-family('manrope-200'),
+    xs-600: to-rem(10) / to-rem(14) font-family('manrope-600'),
+);
+
+@function font($name) {
+    @if map-has-key($texts, $name) {
+        @return map-get($texts, $name);
+    }
+
+    @return to-rem(14) / to-rem(21) font-family('manrope-400');
+}
+
+
+
+@mixin transition-($duration, $attrs: all) {
+    $attr-val: #{$duration}ms linear;
+    $attr-list: "";
+
+    @for $i from 1 through length($attrs) {
+        $attr: nth($attrs, $i);
+
+        @if $attr-list !="" {
+            $attr-list: #{$attr-list} ",";
+        }
+
+        $attr-list: #{$attr-list} #{$attr} #{$attr-val};
+    }
+
+    -webkit-transition: $attr-list;
+    -moz-transition: $attr-list;
+    -ms-transition: $attr-list;
+    -o-transition: $attr-list;
+    transition: $attr-list;
+}

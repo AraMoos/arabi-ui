@@ -1,0 +1,1 @@
+export type inputTypeAttribute = 'text' | 'tel' | 'email' | 'password' | 'search' | 'textarea';
